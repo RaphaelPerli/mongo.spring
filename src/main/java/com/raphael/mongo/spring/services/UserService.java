@@ -1,0 +1,20 @@
+package com.raphael.mongo.spring.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.raphael.mongo.spring.domain.User;
+import com.raphael.mongo.spring.repository.UserRepository;
+
+@Service
+public class UserService {
+
+	@Autowired
+	private UserRepository repo;
+	
+	public List<User> findAll(){
+		return repo.findAll();
+	}
+}
