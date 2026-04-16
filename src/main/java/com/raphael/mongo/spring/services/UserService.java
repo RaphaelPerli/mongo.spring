@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.raphael.mongo.spring.domain.User;
+import com.raphael.mongo.spring.dto.UserDTO;
 import com.raphael.mongo.spring.repository.UserRepository;
 import com.raphael.mongo.spring.services.exception.ObjectNotFoundException;
 
@@ -15,16 +16,24 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repo;
-	
-	public List<User> findAll(){
+
+	public List<User> findAll() {
 		return repo.findAll();
 	}
-	
+
 	public User findById(String id) {
-	    Optional<User> user = repo.findById(id);
-	    if (!user.isPresent()) {
-	        throw new ObjectNotFoundException("Objeto não encontrado");
-	    }
-	    return user.get();
+		Optional<User> user = repo.findById(id);
+		if (!user.isPresent()) {
+			throw new ObjectNotFoundException("Objeto não encontrado");
+		}
+		return user.get();
+	}
+
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
 }
